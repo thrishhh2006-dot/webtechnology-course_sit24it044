@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sign in</title>
+    <style>
+        :root{--bg:#f3f4f6;--card:#ffffff;--accent:#2563eb}
+        html,body{height:100%}
+        body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);display:flex;align-items:center;justify-content:center}
+        .container{width:100%;max-width:420px;padding:1rem}
+        .card{background:var(--card);border-radius:10px;padding:2rem;box-shadow:0 8px 24px rgba(16,24,40,0.08)}
+        h1{margin:0 0 1rem;font-size:1.25rem}
+        .input-group{margin-bottom:1rem}
+        label{display:block;font-size:0.875rem;margin-bottom:0.35rem;color:#111827}
+        input[type="email"],input[type="password"]{width:100%;padding:0.75rem;border:1px solid #e5e7eb;border-radius:8px;font-size:1rem;box-sizing:border-box}
+        .checkbox{display:flex;align-items:center;gap:0.5rem}
+        .button{width:100%;padding:0.75rem;border:0;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;cursor:pointer}
+        .small{font-size:0.875rem;color:#6b7280}
+        .footer{margin-top:0.75rem;text-align:center;font-size:0.875rem;color:#6b7280}
+        .error{color:#dc2626;font-size:0.85rem;display:none;margin-top:0.25rem}
+        a{color:var(--accent);text-decoration:none}
+        @media (max-width:420px){.card{padding:1.25rem}}
+    </style>
+</head>
+
+<body bgcolor="lightblue">
+
+    <div class="container">
+        <div class="card" role="main" aria-labelledby="login-heading">
+            <h1 id="login-heading">Sign in to your account</h1>
+            <form id="login-form" novalidate>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" autocomplete="username" required>
+                    <div class="error" id="email-error">Please enter a valid email address.</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required minlength="6">
+                    <div class="error" id="password-error">Password must be at least 6 characters.</div>
+                </div>
+
+                <div class="input-group checkbox">
+                    <input id="remember" name="remember" type="checkbox">
+                    <label for="remember" class="small">Remember me</label>
+                </div>
+
+                <button type="submit" class="button">Sign in</button>
+
+                <div class="footer small">Don't have an account? <a href="#">Sign up</a></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('login-form');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+
+        function validateEmail(){
+            const ok = email.checkValidity();
+            emailError.style.display = ok ? 'none' : 'block';
+            return ok;
+        }
+
+        function validatePassword(){
+            const ok = password.value.length >= 6;
+            passwordError.style.display = ok ? 'none' : 'block';
+            return ok;
+        }
+
+        email.addEventListener('input', validateEmail);
+        password.addEventListener('input', validatePassword);
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const v1 = validateEmail();
+            const v2 = validatePassword();
+            if (v1 && v2) {
+                // Demo behaviour: replace with real authentication request
+                alert('Logging in...');
+                form.reset();
+            }
+        });
+    </script>
+
+</body>
+</html>
